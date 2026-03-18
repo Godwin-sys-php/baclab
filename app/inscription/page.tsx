@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, type FormEvent } from "react";
+import PhoneInput, { validatePhone } from "@/components/PhoneInput";
 
 const pays = [
   "RDC",
@@ -34,11 +35,21 @@ export default function InscriptionPage() {
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+  const [telephone, setTelephone] = useState("");
+  const [phoneError, setPhoneError] = useState("");
 
   async function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
     setLoading(true);
     setError("");
+    setPhoneError("");
+
+    const phoneErr = validatePhone(telephone);
+    if (phoneErr) {
+      setPhoneError(phoneErr);
+      setLoading(false);
+      return;
+    }
 
     const form = e.currentTarget;
     const formData = new FormData(form);
@@ -48,7 +59,7 @@ export default function InscriptionPage() {
       nom: formData.get("nom") as string,
       pays: formData.get("pays") as string,
       ecole: formData.get("ecole") as string,
-      telephone: formData.get("telephone") as string,
+      telephone,
       email: formData.get("email") as string,
       specialites: formData.getAll("specialites") as string[],
       message: (formData.get("message") as string) || "",
@@ -194,21 +205,11 @@ export default function InscriptionPage() {
                   />
                 </div>
 
-                <div>
-                  <label
-                    htmlFor="telephone"
-                    className="block text-sm font-medium text-foreground/70 mb-1.5"
-                  >
-                    Numéro de téléphone *
-                  </label>
-                  <input
-                    type="tel"
-                    id="telephone"
-                    name="telephone"
-                    required
-                    className="w-full rounded-lg border border-gray-200 px-4 py-3 text-sm transition-colors focus:border-red-primary focus:outline-none focus:ring-1 focus:ring-red-primary"
-                  />
-                </div>
+                <PhoneInput
+                  value={telephone}
+                  onChange={setTelephone}
+                  error={phoneError}
+                />
 
                 <div>
                   <label

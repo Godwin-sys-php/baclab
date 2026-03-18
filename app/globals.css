@@ -44,3 +44,25 @@ html {
   opacity: 1;
   transform: translateY(0);
 }
+
+/* Phone input styling */
+.phone-input-wrapper .PhoneInputInput {
+  border: none;
+  outline: none;
+  background: transparent;
+  font-size: 0.875rem;
+  width: 100%;
+}
+
+.phone-input-wrapper .PhoneInputCountry {
+  margin-right: 0.5rem;
+}
+
+.phone-input-wrapper .PhoneInputCountrySelect {
+  font-size: 0.875rem;
+}
+
+.phone-input-wrapper .PhoneInputCountryIcon {
+  width: 1.5rem;
+  height: 1rem;
+}

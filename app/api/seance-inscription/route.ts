@@ -1,5 +1,7 @@
 import { NextResponse } from "next/server";
 import pool from "@/db/connection";
+import { sendSeanceConfirmationEmail } from "@/lib/resend";
+import { sendSeanceWhatsApp } from "@/lib/whatsapp";
 
 export async function POST(request: Request) {
   try {
@@ -19,6 +21,12 @@ export async function POST(request: Request) {
        VALUES (?, ?, ?, ?)`,
       [prenom, nom, email, telephone]
     );
+
+    // Envoi email et WhatsApp en parallèle (sans bloquer la réponse)
+    Promise.allSettled([
+      sendSeanceConfirmationEmail(email, prenom),
+      sendSeanceWhatsApp(telephone, prenom),
+    ]).catch((err) => console.error("Erreur notifications:", err));
 
     return NextResponse.json({ success: true });
   } catch (error) {

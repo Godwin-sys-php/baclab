@@ -1,0 +1,14 @@
+Bonjour {{prenom}} 👋,
+
+Merci pour votre inscription à la séance d'information BacLab !
+
+📅 Date : Dimanche 22 mars 2026 à 16h00
+📍 Format : En ligne via Zoom
+
+Voici le lien de la séance d'information:
+https://us06web.zoom.us/j/83298790763
+
+En attendant, n'hésitez pas à nous contacter si vous avez des questions.
+
+À très bientôt !
+L'équipe BacLab

@@ -1,23 +1,34 @@
 "use client";
 
 import { useState, type FormEvent } from "react";
+import PhoneInput, { validatePhone } from "@/components/PhoneInput";
 
 export default function SeanceInformationPage() {
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+  const [telephone, setTelephone] = useState("");
+  const [phoneError, setPhoneError] = useState("");
 
   async function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
     setLoading(true);
     setError("");
+    setPhoneError("");
+
+    const phoneErr = validatePhone(telephone);
+    if (phoneErr) {
+      setPhoneError(phoneErr);
+      setLoading(false);
+      return;
+    }
 
     const form = e.currentTarget;
     const data = {
       prenom: (form.elements.namedItem("prenom") as HTMLInputElement).value,
       nom: (form.elements.namedItem("nom") as HTMLInputElement).value,
       email: (form.elements.namedItem("email") as HTMLInputElement).value,
-      telephone: (form.elements.namedItem("telephone") as HTMLInputElement).value,
+      telephone,
     };
 
     try {
@@ -49,7 +60,7 @@ export default function SeanceInformationPage() {
             Séance d&apos;information BacLab
           </h1>
           <p className="text-white/80 text-lg max-w-2xl mx-auto">
-            Dimanche 15 mars 2026 à 14h00 — En ligne via Zoom
+            Dimanche 22 mars 2026 à 16h00 — En ligne via Zoom
           </p>
         </div>
       </section>
@@ -188,21 +199,11 @@ export default function SeanceInformationPage() {
                   />
                 </div>
 
-                <div>
-                  <label
-                    htmlFor="telephone"
-                    className="block text-sm font-medium text-foreground/70 mb-1.5"
-                  >
-                    Numéro de téléphone *
-                  </label>
-                  <input
-                    type="tel"
-                    id="telephone"
-                    name="telephone"
-                    required
-                    className="w-full rounded-lg border border-gray-200 px-4 py-3 text-sm transition-colors focus:border-red-primary focus:outline-none focus:ring-1 focus:ring-red-primary"
-                  />
-                </div>
+                <PhoneInput
+                  value={telephone}
+                  onChange={setTelephone}
+                  error={phoneError}
+                />
 
                 <button
                   type="submit"

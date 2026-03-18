@@ -298,7 +298,7 @@ export default function Home() {
               <ActualiteCard
                 badge="PROCHAIN ÉVÉNEMENT"
                 title="Séance d'information BacLab"
-                date="Dimanche 15 mars 2026 à 14h00"
+                date="Dimanche 22 mars 2026 à 16h00"
                 description="Découvrez BacLab lors de notre séance d'information en ligne. Posez vos questions et apprenez comment nos alumni peuvent vous aider."
                 href="/actualites/seance-information"
                 buttonLabel="En savoir plus"
